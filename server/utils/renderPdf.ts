@@ -1,5 +1,7 @@
-import puppeteer, { LaunchOptions } from 'puppeteer'
+import puppeteer, { LaunchOptions, BrowserOptions, ChromeArgOptions } from 'puppeteer'
 import logger from '../../log'
+
+type PuppeteerOptions = LaunchOptions & ChromeArgOptions & BrowserOptions
 
 async function send(puppeteerOptions, res, options, html) {
   res.header('Content-Type', 'application/pdf')
@@ -33,7 +35,7 @@ function render(req, res, next, puppeteerOptions) {
 }
 
 export = function pdfRenderer(
-  puppeteerOptions: LaunchOptions = { args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] }
+  puppeteerOptions: PuppeteerOptions = { args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] }
 ) {
   return (req, res, next) => {
     res.renderPDF = render(req, res, next, puppeteerOptions)
