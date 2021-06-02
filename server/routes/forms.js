@@ -1,4 +1,5 @@
 const moment = require('moment')
+const path = require('path')
 const logger = require('../../log.js')
 const { asyncMiddleware } = require('../utils/middleware')
 const {
@@ -7,6 +8,7 @@ const {
   pdf: {
     forms: { formTemplates, formsDateFormat, pdfOptions },
   },
+  wordFormatForms,
 } = require('../config')
 const { curfewAddressCheckFormFileName } = require('./utils/pdfUtils')
 const { isEmpty, getIn } = require('../utils/functionalHelpers')
@@ -62,11 +64,15 @@ module.exports = ({ formService }) => (router) => {
         throw new Error(`unknown form template: ${templateName}`)
       }
 
+      if (wordFormatForms.includes(templateName)) {
+        logger.info(`Returning word document for the '${templateName}' form`)
+        return res.download(path.join(__dirname, `../views/forms/downloads/${templateName}.docx`))
+      }
+
       logger.info(`Render PDF for form '${templateName}'`)
 
       const isBass = getIn(licenceStatus, ['decisions', 'bassReferralNeeded']) === true
       const isAp = getIn(licenceStatus, ['decisions', 'approvedPremisesRequired']) === true
-
       try {
         const [pageData, curfewData] = await Promise.all([
           formService.getTemplateData(templateName, licence, prisoner),

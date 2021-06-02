@@ -66,6 +66,8 @@ export const createPdfServiceStub = () => ({
 
 export const createFormServiceStub = () => ({
   generatePdf: jest.fn(),
+  getTemplateData: jest.fn(),
+  getCurfewAddressCheckData: jest.fn(),
 })
 
 export const createUserAdminServiceStub = () => ({
