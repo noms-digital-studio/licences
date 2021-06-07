@@ -48,23 +48,30 @@ const RO_USER = {
   teams: deliusTeams,
 }
 
+const RO_USER_READONLY_TEST = {
+  username: 'RO_USER_READONLY_TEST',
+  staffCode: 'AUTH_DELIUS_ID_TEST',
+  staffIdentifier: 4,
+  email: 'hdc_test+RO_USER_READONLY_TEST@digital.justice.gov.uk',
+  staff: {
+    forenames: 'FIRSTA',
+    surname: 'LASTA',
+  },
+  teams: deliusTeams,
+}
+
 const staffDetailsByUsername = {
   AUTH_RO_USER_TEST,
   RO_USER_TEST,
   RO_USER,
+  RO_USER_READONLY_TEST,
 }
-
-/*
-const staffDetailsByStaffCode = {
-  DELIUS_ID_TEST: RO_USER_TEST,
-  DELIUS_ID: RO_USER,
-}
-*/
 
 const staffDetailsByStaffIdentifier = {
   1: AUTH_RO_USER_TEST,
   2: RO_USER_TEST,
   3: RO_USER,
+  4: RO_USER_READONLY_TEST,
 }
 
 const router = express.Router()
@@ -78,39 +85,6 @@ router.get('/staff/username/:username', (req, res) => {
     res.sendStatus(404)
   }
 })
-
-/*
-router.get('/staff/staffCode/:staffCode', (req, res) => {
-  const { staffCode } = req.params
-  const staffDetails = staffDetailsByStaffCode[staffCode]
-  if (staffDetails) {
-    res.send(staffDetails)
-  } else {
-    res.sendStatus(404)
-  }
-})
-
-router.get('/staff/staffCode/:staffCode/managedOffenders', (req, res) => {
-  const { staffCode } = req.params
-
-  const offenders = [
-    {
-      staffCode,
-      offenderId: 1234567,
-      nomsNumber: 'A5001DY',
-      crnNumber: 1234567,
-      offenderSurname: 'Andrews',
-      isCurrentRo: true,
-      isCurrentOm: true,
-      isCurrentPom: true,
-      omStartDate: '01/01/2001',
-      omEndDate: '01/01/2001',
-    },
-  ]
-
-  res.send(offenders)
-})
-*/
 
 router.get('/staff/staffIdentifier/:staffIdentifier', (req, res) => {
   const { staffIdentifier } = req.params

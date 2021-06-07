@@ -31,7 +31,12 @@ table#hdcEligiblePrisoners.sortcolumns.largeMarginBottom
           td
             -var label = labels.ro[prisoner.status] || 'View'
 
-            if ['PROCESSING_RO', 'DECIDED', 'MODIFIED', 'MODIFIED_APPROVAL'].includes(prisoner.stage)
+            if (user.role === 'RO_READONLY')
+              if (label !== 'Start now')
+                -var path = "/hdc/review/licence/" + prisoner.bookingId
+                a.button.button-secondary.fullWidth.center(href=path role="button") View
+
+            else if ['PROCESSING_RO', 'DECIDED', 'MODIFIED', 'MODIFIED_APPROVAL'].includes(prisoner.stage)
               -var path = "/hdc/taskList/" + prisoner.bookingId
               if (['Start now', 'Continue'].includes(label))
                 a.button.button-primary.fullWidth.center(href=path role="button") #{label}

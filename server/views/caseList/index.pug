@@ -6,12 +6,12 @@ block content
       if showExitUrl
         a.link(href=exitUrl data-qa='exit-to-dps-link') Exit to Digital Prison Services
 
-    if user.role === 'RO'
+    if ( user.role === 'RO' || user.role === 'RO_READONLY' )
       div.pure-u-1.searchLink.alignRight.sm-padTop55.u-paddingTop
         a#searchOffenderLink(href=globalSearchUrl) Search all offenders
 
     div.pure-u-1
-      div(class= user.role === 'RO' ? "pure-g paddingTop" : "pure-g xlargePaddingTop")
+      div(class= (user.role === 'RO' || user.role === 'RO_READONLY' ) ? "pure-g paddingTop" : "pure-g xlargePaddingTop")
         div.pure-u-1.pure-u-md-1-2
           h2.heading-large.noMargin Case list
         div.pure-u-1.pure-u-md-1-2.form-group
@@ -27,7 +27,7 @@ block content
       if (user.role === 'CA' || user.role === 'READONLY')
         include ./CATable
 
-      if user.role === 'RO'
+      if (user.role === 'RO' || user.role === 'RO_READONLY' )
         include ./ROTable
 
       if user.role === 'DM'

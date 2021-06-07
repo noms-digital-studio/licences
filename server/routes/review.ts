@@ -12,6 +12,7 @@ function shouldValidate(role, stage, postApproval) {
     ? role === 'CA'
     : {
         READONLY: [],
+        RO_READONLY: [],
         CA: ['ELIGIBILITY', 'PROCESSING_CA', 'FINAL_CHECKS'],
         RO: ['PROCESSING_RO'],
         DM: ['APPROVAL'],
