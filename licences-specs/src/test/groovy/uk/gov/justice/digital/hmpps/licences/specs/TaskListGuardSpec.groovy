@@ -36,11 +36,12 @@ class TaskListGuardSpec extends GebReportingSpec {
     at expectedPage
 
     where:
-    role       || expectedPage
-    'READONLY' || CaselistPage
-    'CA'       || TaskListPage
-    'RO'       || TaskListPage
-    'DM'       || CaselistPage
+    role          || expectedPage
+    'READONLY'    || CaselistPage
+    'RO_READONLY' || CaselistPage
+    'CA'          || TaskListPage
+    'RO'          || TaskListPage
+    'DM'          || CaselistPage
   }
 
   @Unroll
