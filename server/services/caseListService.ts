@@ -23,6 +23,7 @@ export = function createCaseListService(
         return getPrisonCaseList(token)
 
       case 'RO':
+      case 'RO_READONLY':
         return getROCaseList(username, token)
 
       default:
